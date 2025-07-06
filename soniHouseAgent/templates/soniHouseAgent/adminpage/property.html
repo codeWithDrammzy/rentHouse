@@ -1,0 +1,79 @@
+{% extends "soniHouseAgent/adminpage/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<main class="col-span-1 md:col-span-8 px-4" x-data="{ showForm: false }">
+  <div class="max-w-7xl mx-auto space-y-8 mt-4">
+
+    <!-- Header with Title and Add Button -->
+    <div class="flex justify-between items-center border-b pb-2">
+      <h2 class="text-2xl font-bold text-blue-800">Property Listings</h2>
+      <button @click="showForm = !showForm" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+        New Property
+      </button>
+    </div>
+
+
+    <div x-show="showForm" x-transition class="bg-white p-6 rounded shadow space-y-4">
+      <form method="POST" >
+        {% csrf_token %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {{form|crispy}} 
+        </div>
+        <div class="pt-4">
+          <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Submit</button>
+          <button type="button" @click="showForm = false" class="ml-2 px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">Cancel</button>
+        </div>
+      </form>
+    </div>
+    
+
+    <!-- Table of Properties -->
+    <div class="overflow-x-auto bg-white rounded-lg shadow">
+      <table class="min-w-full table-auto">
+        <thead class="bg-gray-100 text-left text-gray-700 uppercase text-sm font-semibold">
+          <tr>
+            <th class="px-6 py-3">Owner</th>
+            <th class="px-6 py-3">Title</th>
+            <th class="px-6 py-3">Location</th>
+            <th class="px-6 py-3">Price</th>
+            <th class="px-6 py-3">Bedrooms</th>
+            <th class="px-6 py-3">Bathrooms</th>
+            
+            <th class="px-6 py-3">Status</th>
+            <th class="px-6 py-3">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="text-sm text-gray-800">
+          {% for list in properties %}
+          <tr class="border-b hover:bg-gray-50">
+            <td class="px-6 py-3">{{ list.owner.first_name|title }} {{ list.owner.last_name|title }}</td>
+            <td class="px-6 py-3">{{ list.title|title }}</td>
+            <td class="px-6 py-3">{{ list.location|title }}</td>
+            <td class="px-6 py-3">D {{ list.price|floatformat:2 }}</td>
+            <td class="px-6 py-3">{{ list.num_bedrooms }}</td>
+            <td class="px-6 py-3">{{ list.num_bathrooms }}</td>
+            
+            <td class="px-6 py-3">
+              {% if list.is_available %}
+                <span class="text-green-600 font-semibold">Available</span>
+              {% else %}
+                <span class="text-red-500 font-semibold">Occupied</span>
+              {% endif %}
+            </td>
+            <td class="px-6 py-3 space-x-2">
+              <a href="" class="text-blue-600 hover:underline">View</a>
+              
+            </td> 
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+</main>
+{% endblock %}

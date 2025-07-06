@@ -1,0 +1,79 @@
+{% extends "soniHouseAgent/adminpage/base.html" %}
+{% load crispy_forms_tags %} 
+
+{% block content %}
+<main class="col-span-1 md:col-span-8 px-4" x-data="{ showForm: false }">
+  <div class="max-w-5xl mx-auto space-y-8 mt-4">
+    
+    <!-- Mini Nav with Title and New Button -->
+    <div class="flex justify-between items-center border-b pb-2">
+      <h2 class="text-2xl font-bold text-blue-800">Tenants</h2>
+      <button @click="showForm = !showForm" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+        New Tenant
+      </button>
+    </div>
+
+    <!-- Tenant Form -->
+    <div x-show="showForm" x-transition class="bg-white p-6 rounded shadow space-y-4">
+      <form method="POST">
+        {% csrf_token %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {{ form|crispy }}
+        </div>
+        <div class="pt-4">
+          <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Submit</button>
+          <button type="button" @click="showForm = false" class="ml-2 px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Tenants Table -->
+    <div class="overflow-x-auto bg-white rounded-lg shadow">
+      <table class="min-w-full table-auto">
+        <thead class="bg-gray-100 text-left text-gray-700 uppercase text-sm font-semibold">
+          <tr>
+            <th class="px-6 py-3">#</th>
+            <th class="px-6 py-3">Name</th>
+            <th class="px-6 py-3">Phone</th>
+            <th class="px-6 py-3">Room</th>
+            <th class="px-6 py-3">Payment Status</th>
+            <th class="px-6 py-3">Next Due Date</th>
+            <th class="px-6 py-3">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="text-sm text-gray-800">
+          {% for tenant in tenants %}
+            <tr class="border-b hover:bg-gray-50">
+              <td class="px-6 py-3">{{ forloop.counter }}</td>
+              <td class="px-6 py-3">{{ tenant.first_name }} {{ tenant.last_name }}</td>
+              <td class="px-6 py-3">{{ tenant.phone_number }}</td>
+              <td class="px-6 py-3">{{ tenant.house.title }}</td>
+              <td class="px-6 py-3">
+                <span class="
+                  {% if tenant.get_payment_status == 'paid' %}text-green-600
+                  {% elif tenant.get_payment_status == 'due_soon' %}text-yellow-600
+                  {% else %}text-red-600{% endif %}
+                ">
+                  {{ tenant.get_payment_status|capfirst }} 
+                </span>
+              </td>
+              <td class="px-6 py-3">{{ tenant.get_next_due_date|date:"M d, Y" }}</td>
+              <td class="px-6 py-3">
+                <a href="#" class="text-blue-600 hover:underline mr-3">View Info</a>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="7" class="text-center py-4 text-gray-500">No tenants added yet.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</main>
+{% endblock %}

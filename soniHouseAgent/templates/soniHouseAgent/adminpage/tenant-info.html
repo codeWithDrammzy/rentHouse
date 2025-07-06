@@ -1,0 +1,44 @@
+{% extends "soniHouseAgent/adminpage/base.html" %}
+
+{% block content %}
+<main class="col-span-1 md:col-span-8 px-4">
+  <div class="max-w-3xl mx-auto mt-6 bg-white shadow rounded-lg p-6 space-y-6">
+
+    <h2 class="text-2xl font-bold text-blue-800">Tenant Details</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+      <div>
+        <p class="text-gray-600">Name</p>
+        <p class="font-semibold text-gray-800">Aliyu Umar</p>
+      </div>
+      <div>
+        <p class="text-gray-600">Phone</p>
+        <p class="font-semibold text-gray-800">08123456789</p>
+      </div>
+      <div>
+        <p class="text-gray-600">Email</p>
+        <p class="font-semibold text-gray-800">aliyu@example.com</p>
+      </div>
+      <div>
+        <p class="text-gray-600">Room Number</p>
+        <p class="font-semibold text-gray-800">Room 101</p>
+      </div>
+      <div>
+        <p class="text-gray-600">Rent Amount</p>
+        <p class="font-semibold text-gray-800">₦300,000</p>
+      </div>
+      <div>
+        <p class="text-gray-600">Next Payment Due</p>
+        <p class="font-semibold text-red-600">30th August 2025</p>
+      </div>
+    </div>
+
+    <div class="pt-6 flex gap-4">
+      <a href="#" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Edit</a>
+      <a href="#" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Renew Rent</a>
+      <a href="#" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Delete</a>
+    </div>
+
+  </div>
+</main>
+{% endblock %}
