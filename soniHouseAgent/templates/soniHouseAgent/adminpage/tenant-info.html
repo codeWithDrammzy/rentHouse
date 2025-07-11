@@ -9,33 +9,70 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
       <div>
         <p class="text-gray-600">Name</p>
-        <p class="font-semibold text-gray-800">Aliyu Umar</p>
+        <p class="font-semibold text-gray-800 text-2xl italic">
+          {{ tenant.first_name|title }} {{ tenant.last_name|title }}
+        </p>
       </div>
+
       <div>
         <p class="text-gray-600">Phone</p>
-        <p class="font-semibold text-gray-800">08123456789</p>
+        <p class="font-semibold text-gray-800">{{ tenant.phone_number }}</p>
       </div>
+
       <div>
-        <p class="text-gray-600">Email</p>
-        <p class="font-semibold text-gray-800">aliyu@example.com</p>
+        <p class="text-gray-600">ID Card</p>
+        <p class="font-semibold text-gray-800">{{ tenant.id_card }}</p>
       </div>
+
       <div>
-        <p class="text-gray-600">Room Number</p>
-        <p class="font-semibold text-gray-800">Room 101</p>
+        <p class="text-gray-600">Room / House</p>
+        <p class="font-semibold text-gray-800">{{ tenant.house.title }}</p>
       </div>
+
+      <div>
+        <p class="text-gray-600">Location</p>
+        <p class="font-semibold text-gray-800">📍 {{ tenant.house.location|title }}</p>
+      </div>
+
+      <div>
+        <p class="text-gray-600">Payment Option</p>
+        <p class="font-semibold text-gray-800">{{ tenant.get_payment_option_display }}</p>
+      </div>
+
       <div>
         <p class="text-gray-600">Rent Amount</p>
-        <p class="font-semibold text-gray-800">₦300,000</p>
+        <p class="font-semibold text-gray-800">D {{ tenant.payment_amount|floatformat:0 }}</p>
       </div>
+
+      <div>
+        <p class="text-gray-600">Move-in Date</p>
+        <p class="font-semibold text-gray-800">{{ tenant.move_in_date|date:"M d, Y" }}</p>
+      </div>
+
+      <div>
+        <p class="text-gray-600">Last Payment Date</p>
+        <p class="font-semibold text-gray-800">{{ tenant.last_payment_date|date:"M d, Y" }}</p>
+      </div>
+
       <div>
         <p class="text-gray-600">Next Payment Due</p>
-        <p class="font-semibold text-red-600">30th August 2025</p>
+        <p class="font-semibold {% if tenant.get_payment_status == 'overdue' %}text-red-600{% elif tenant.get_payment_status == 'due_soon' %}text-yellow-600{% else %}text-green-600{% endif %}">
+          {{ tenant.get_next_due_date|date:"M d, Y" }}
+        </p>
+      </div>
+
+      <div>
+        <p class="text-gray-600">Payment Status</p>
+        <p class="font-semibold {% if tenant.get_payment_status == 'overdue' %}text-red-600{% elif tenant.get_payment_status == 'due_soon' %}text-yellow-600{% else %}text-green-600{% endif %}">
+          {{ tenant.get_payment_status|capfirst }}
+        </p>
       </div>
     </div>
 
     <div class="pt-6 flex gap-4">
-      <a href="#" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Edit</a>
-      <a href="#" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Renew Rent</a>
+     <a href="{{ request.META.HTTP_REFERER }}" onclick="history.back()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Back</a>
+
+      <a href="{% url 'renew-rent' tenant.id %}" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Renew Rent</a>
       <a href="#" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Delete</a>
     </div>
 

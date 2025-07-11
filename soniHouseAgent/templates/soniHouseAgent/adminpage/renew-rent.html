@@ -1,0 +1,44 @@
+{% extends "soniHouseAgent/adminpage/base.html" %}
+
+{% block content %}
+<main class="col-span-1 md:col-span-8 px-4">
+  <div class="max-w-xl mx-auto mt-6 bg-white shadow rounded-lg p-6 space-y-6">
+
+    <h2 class="text-2xl font-bold text-green-700">Renew Rent for Aliyu Umar</h2>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="grid grid-cols-1 gap-4 text-sm">
+
+        <!-- Payment Option -->
+        <div>
+          <label for="payment_option" class="block text-gray-600">Payment Duration</label>
+          <select name="payment_option" id="payment_option" class="w-full rounded border-gray-300">
+            <option value="6_months" selected>6 Months</option>
+            <option value="1_year">1 Year</option>
+          </select>
+        </div>
+
+        <!-- Renewal Date -->
+        <div>
+          <label for="last_payment_date" class="block text-gray-600">Renewal Date</label>
+          <input type="date" name="last_payment_date" id="last_payment_date" value="2025-07-10" class="w-full rounded border-gray-300">
+        </div>
+
+        <!-- Payment Amount (read-only) -->
+        <div>
+          <label for="payment_amount" class="block text-gray-600">New Payment Amount</label>
+          <input type="text" name="payment_amount" id="payment_amount" class="w-full rounded border-gray-300 bg-gray-100 text-gray-800 font-semibold" value="D 180,000" readonly>
+        </div>
+      </div>
+
+      <div class="pt-4 flex gap-4">
+        <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Renew</button>
+        <a href="/tenant/1/info" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">Cancel</a>
+      </div>
+    </form>
+
+  </div>
+</main>
+{% endblock %}

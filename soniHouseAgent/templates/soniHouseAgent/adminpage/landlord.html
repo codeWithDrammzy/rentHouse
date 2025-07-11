@@ -35,19 +35,34 @@
         <thead class="bg-gray-100 text-left text-gray-700 uppercase text-sm font-semibold">
           <tr>
             <th class="px-6 py-3">Name</th>
-            <th class="px-6 py-3">Email</th>
+            <th class="px-6 py-3">Property</th>
             <th class="px-6 py-3">Phone</th>
-            <th class="px-6 py-3">Address</th>
             <th class="px-6 py-3">Actions</th>
           </tr>
         </thead>
         <tbody class="text-sm text-gray-800">
           {% for owner in owners %}
           <tr class="border-b hover:bg-gray-50">
-            <td class="px-6 py-3">{{ owner.first_name|title }} {{ owner.last_name|title }}</td>
-            <td class="px-6 py-3">{{ owner.email }}</td>
+            <td class="px-6 py-3 font-medium">{{ owner.first_name|title }} {{ owner.last_name|title }}</td>
+            <td class="px-6 py-3">
+              {% with houses=owner.houses.all %}
+                {% if houses %}
+                  <ul class="list-disc pl-4 space-y-1 text-sm">
+                    {% for house in houses %}
+                      <li>
+                        <span class="font-medium text-gray-800">{{ house.title|title }}</span>
+                        <span class="text-gray-500 text-xs">— D{{ house.price|floatformat:"2" }}</span>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <span class="text-gray-400 italic text-sm">No properties</span>
+                {% endif %}
+              {% endwith %}
+            </td>
+
+
             <td class="px-6 py-3">{{ owner.phone_number }}</td>
-            <td class="px-6 py-3">{{ owner.address }}</td>
             <td class="px-6 py-3">
               <a href="#" class="text-blue-600 hover:underline mr-3">View Info</a>
             </td>

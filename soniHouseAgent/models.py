@@ -1,8 +1,7 @@
 from django.db import models
 from datetime import date, timedelta
 
-
-# 🔵 House Owner Model
+# 🔵 Landlord Model
 class Landlord(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -48,13 +47,24 @@ class Tenant(models.Model):
     move_in_date = models.DateField(auto_now_add=True)
     payment_option = models.CharField(max_length=10, choices=PAYMENT_OPTIONS)
     last_payment_date = models.DateField(auto_now_add=True)
-    payment_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     has_paid = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
+        # Automatically calculate payment amount based on house price and payment duration
+        if self.house and self.house.price:
+            if self.payment_option == '6_months':
+                self.payment_amount = self.house.price * 6
+            elif self.payment_option == '1_year':
+                self.payment_amount = self.house.price * 12
+            else:
+                self.payment_amount = self.house.price  # default fallback
+
+        # Mark house as unavailable if it is currently available
         if self.house.is_available:
             self.house.is_available = False
             self.house.save()
+
         super().save(*args, **kwargs)
 
     def get_next_due_date(self):

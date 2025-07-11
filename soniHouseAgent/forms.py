@@ -22,3 +22,7 @@ class TenantForm(forms.ModelForm):
     class Meta:
         model = Tenant
         fields = '__all__'
+        exclude = ['payment_amount']
+
+        
+        

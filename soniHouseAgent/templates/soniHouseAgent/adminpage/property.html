@@ -38,9 +38,8 @@
             <th class="px-6 py-3">Owner</th>
             <th class="px-6 py-3">Title</th>
             <th class="px-6 py-3">Location</th>
-            <th class="px-6 py-3">Price</th>
-            <th class="px-6 py-3">Bedrooms</th>
-            <th class="px-6 py-3">Bathrooms</th>
+            <th class="px-6 py-3">Price / Monthly</th>
+            
             
             <th class="px-6 py-3">Status</th>
             <th class="px-6 py-3">Actions</th>
@@ -53,8 +52,7 @@
             <td class="px-6 py-3">{{ list.title|title }}</td>
             <td class="px-6 py-3">{{ list.location|title }}</td>
             <td class="px-6 py-3">D {{ list.price|floatformat:2 }}</td>
-            <td class="px-6 py-3">{{ list.num_bedrooms }}</td>
-            <td class="px-6 py-3">{{ list.num_bathrooms }}</td>
+           
             
             <td class="px-6 py-3">
               {% if list.is_available %}
@@ -64,7 +62,8 @@
               {% endif %}
             </td>
             <td class="px-6 py-3 space-x-2">
-              <a href="" class="text-blue-600 hover:underline">View</a>
+              <a href="{% url 'property-info' list.id %}" class="text-blue-600 hover:underline">View Info</a>
+
               
             </td> 
           </tr>

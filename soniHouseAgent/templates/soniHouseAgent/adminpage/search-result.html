@@ -1,0 +1,123 @@
+{% extends "soniHouseAgent/adminpage/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<main class="col-span-1 md:col-span-8 px-4 ">
+  <div class="max-w-6xl mx-auto mt-6 space-y-10">
+
+    <!-- Search Query Header -->
+    <h2 class="text-xl font-semibold text-gray-800">Search Results for:
+      <span class="text-blue-600">"{{ query }}"</span>
+    </h2>
+
+    <!-- Tenant Results -->
+    {% if tenant %}
+    <div>
+      <h3 class="text-lg font-bold text-gray-700 mb-4">Tenants</h3>
+      <div class="overflow-x-auto bg-white shadow rounded-lg">
+        <table class="min-w-full table-auto">
+          <thead class="bg-gray-100 text-left text-gray-700 uppercase text-sm font-semibold">
+            <tr>
+              <th class="px-6 py-3">Name</th>
+              <th class="px-6 py-3">Phone</th>
+              <th class="px-6 py-3">Room</th>
+              <th class="px-6 py-3">Payment Status</th>
+              <th class="px-6 py-3">Next Due Date</th>
+              <th class="px-6 py-3">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="text-sm text-gray-800">
+            {% for t in tenant %}
+            <tr class="border-b hover:bg-gray-50">
+              <td class="px-6 py-3 font-bold">{{ t.first_name|title }} {{ t.last_name|title }}</td>
+              <td class="px-6 py-3">{{ t.phone_number }}</td>
+              <td class="px-6 py-3">{{ t.house.title }}</td>
+              <td class="px-6 py-3">
+                <span class="{% if t.get_payment_status == 'paid' %}text-green-600{% elif t.get_payment_status == 'due_soon' %}text-yellow-600{% else %}text-red-600{% endif %}">
+                  {{ t.get_payment_status|capfirst }}
+                </span>
+              </td>
+              <td class="px-6 py-3">{{ t.get_next_due_date|date:"M d, Y" }}</td>
+              
+              <td class="px-6 py-3">
+                {% if t.id %}
+                  <a href="{% url 'tenant-info' t.id %}" class="text-blue-600 hover:underline mr-3">View Info</a>
+                {% else %}
+                  <span class="text-gray-400 italic">No Info</span>
+                {% endif %}
+              </td>
+
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" class="text-center py-4 text-gray-500">No tenants found.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Landlord Results -->
+    {% if owner %}
+    <div>
+      <h3 class="text-lg font-bold text-gray-700 mb-4">Landlords</h3>
+      <div class="overflow-x-auto bg-white shadow rounded-lg">
+        <table class="min-w-full table-auto">
+          <thead class="bg-gray-100 text-left text-gray-700 uppercase text-sm font-semibold">
+            <tr>
+              <th class="px-6 py-3">Name</th>
+              <th class="px-6 py-3">Phone</th>
+              <th class="px-6 py-3">ID Card</th>
+            </tr>
+          </thead>
+          <tbody class="text-sm text-gray-800">
+            {% for o in owner %}
+            <tr class="border-b hover:bg-gray-50">
+              <td class="px-6 py-3 font-bold">{{ o.first_name }} {{ o.last_name }}</td>
+              <td class="px-6 py-3">{{ o.phone_number }}</td>
+              <td class="px-6 py-3">{{ o.id_card }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3" class="text-center py-4 text-gray-500">No landlords found.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Property Results -->
+    {% if property %}
+    <div>
+      <h3 class="text-lg font-bold text-gray-700 mb-4">Properties</h3>
+      <div class="overflow-x-auto bg-white shadow rounded-lg">
+        <table class="min-w-full table-auto">
+          <thead class="bg-gray-100 text-left text-gray-700 uppercase text-sm font-semibold">
+            <tr>
+              <th class="px-6 py-3">Title</th>
+              <th class="px-6 py-3">Location</th>
+              <th class="px-6 py-3">Bedrooms</th>
+              <th class="px-6 py-3">Price</th>
+            </tr>
+          </thead>
+          <tbody class="text-sm text-gray-800">
+            {% for p in property %}
+            <tr class="border-b hover:bg-gray-50">
+              <td class="px-6 py-3">{{ p.title }}</td>
+              <td class="px-6 py-3">{{ p.location }}</td>
+              <td class="px-6 py-3">{{ p.num_bedrooms }}</td>
+              <td class="px-6 py-3">₦{{ p.price }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="text-center py-4 text-gray-500">No properties found.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</main>
+{% endblock %}

@@ -1,57 +1,69 @@
 {% extends "soniHouseAgent/adminpage/base.html" %}
+{% block content %}
+<main class="col-span-1 md:col-span-8 px-4">
+  <div class="max-w-6xl mx-auto space-y-8 mt-4">
+
+    <!-- Stat Cards -->
+   <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+  <!-- Properties -->
+  <div class="bg-gradient-to-r from-blue-500 to-blue-700 text-white p-6 rounded-xl shadow">
+    <h3 class="text-lg font-semibold">Total Properties</h3>
+    <p class="text-3xl font-bold mt-2">{{ property_count }}</p>
+  </div>
+
+  <!-- Tenants -->
+  <div class="bg-gradient-to-r from-green-500 to-green-700 text-white p-6 rounded-xl shadow">
+    <h3 class="text-lg font-semibold">Active Tenants</h3>
+    <p class="text-3xl font-bold mt-2">{{ tenant_count }}</p>
+  </div>
+
+  <!-- Landlords -->
+  <div class="bg-gradient-to-r from-yellow-500 to-yellow-700 text-white p-6 rounded-xl shadow">
+    <h3 class="text-lg font-semibold">Total Landlords</h3>
+    <p class="text-3xl font-bold mt-2">{{ landlord_count }}</p>
+  </div>
 
 
-{%block content%}
- <main class="col-span-1 md:col-span-8 px-4">
-      <div class="max-w-4xl mx-auto space-y-8 mt-4">
-        <!-- Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="bg-gradient-to-r from-blue-500 to-blue-700 text-white p-6 rounded-xl shadow">
-            <h3 class="text-lg font-semibold">Total Listings</h3>
-            <p class="text-3xl font-bold mt-2">24</p>
-          </div>
-          <div class="bg-gradient-to-r from-green-500 to-green-700 text-white p-6 rounded-xl shadow">
-            <h3 class="text-lg font-semibold">Active Tenants</h3>
-            <p class="text-3xl font-bold mt-2">15</p>
-          </div>
-        </div>
+  
+</div>
 
-        <!-- Table -->
-        <section class="bg-white p-6 rounded-lg shadow">
-          <h2 class="text-xl font-semibold mb-4">Tenant Payment Status</h2>
-          <div class="overflow-x-auto">
-            <table class="w-full text-sm text-left">
-              <thead class="bg-gray-100 text-gray-600">
-                <tr>
-                  <th class="px-4 py-2">Tenant</th>
-                  <th class="px-4 py-2">Unit</th>
-                  <th class="px-4 py-2">Last Payment</th>
-                  <th class="px-4 py-2">Status</th>
-                </tr>
-              </thead>
-              <tbody class="text-gray-700">
-                <tr class="border-b">
-                  <td class="px-4 py-2 font-medium">Aliyu Umar</td>
-                  <td class="px-4 py-2">Block A1</td>
-                  <td class="px-4 py-2">May 10, 2025</td>
-                  <td class="px-4 py-2 text-red-600 font-semibold">Overdue</td>
-                </tr>
-                <tr class="border-b">
-                  <td class="px-4 py-2 font-medium">Zainab Bello</td>
-                  <td class="px-4 py-2">Block B3</td>
-                  <td class="px-4 py-2">June 28, 2025</td>
-                  <td class="px-4 py-2 text-green-600 font-semibold">Paid</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-2 font-medium">Yusuf Sani</td>
-                  <td class="px-4 py-2">Block C2</td>
-                  <td class="px-4 py-2">June 1, 2025</td>
-                  <td class="px-4 py-2 text-yellow-500 font-semibold">Due Soon</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
+    <!-- Payment Status Table -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4">Tenant Payment Status</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left border border-gray-200 rounded">
+          <thead class="bg-gray-100 text-gray-600">
+            <tr>
+              <th class="px-4 py-2">Tenant</th>
+              <th class="px-4 py-2">Unit</th>
+              <th class="px-4 py-2">Last Payment</th>
+              <th class="px-4 py-2">Status</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-700">
+            <tr class="border-b">
+              <td class="px-4 py-2 font-medium">Aliyu Umar</td>
+              <td class="px-4 py-2">Block A1</td>
+              <td class="px-4 py-2">May 10, 2025</td>
+              <td class="px-4 py-2 text-red-600 font-semibold">Overdue</td>
+            </tr>
+            <tr class="border-b">
+              <td class="px-4 py-2 font-medium">Zainab Bello</td>
+              <td class="px-4 py-2">Block B3</td>
+              <td class="px-4 py-2">June 28, 2025</td>
+              <td class="px-4 py-2 text-green-600 font-semibold">Paid</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 font-medium">Yusuf Sani</td>
+              <td class="px-4 py-2">Block C2</td>
+              <td class="px-4 py-2">June 1, 2025</td>
+              <td class="px-4 py-2 text-yellow-500 font-semibold">Due Soon</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </main>
-{%endblock%}
+    </section>
+
+  </div>
+</main>
+{% endblock %}

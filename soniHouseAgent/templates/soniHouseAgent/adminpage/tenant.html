@@ -37,8 +37,9 @@
           <tr>
             <th class="px-6 py-3">#</th>
             <th class="px-6 py-3">Name</th>
-            <th class="px-6 py-3">Phone</th>
-            <th class="px-6 py-3">Room</th>
+            
+            <th class="px-6 py-3">House</th>
+            <th class="px-6 py-3">Location</th>
             <th class="px-6 py-3">Payment Status</th>
             <th class="px-6 py-3">Next Due Date</th>
             <th class="px-6 py-3">Actions</th>
@@ -48,9 +49,10 @@
           {% for tenant in tenants %}
             <tr class="border-b hover:bg-gray-50">
               <td class="px-6 py-3">{{ forloop.counter }}</td>
-              <td class="px-6 py-3">{{ tenant.first_name }} {{ tenant.last_name }}</td>
-              <td class="px-6 py-3">{{ tenant.phone_number }}</td>
+              <td class="px-6 py-3">{{ tenant.first_name|title }} {{ tenant.last_name|title }}</td>
+              
               <td class="px-6 py-3">{{ tenant.house.title }}</td>
+              <td class="px-6 py-3">📍 {{ tenant.house.location|title }}</td>
               <td class="px-6 py-3">
                 <span class="
                   {% if tenant.get_payment_status == 'paid' %}text-green-600
@@ -62,7 +64,7 @@
               </td>
               <td class="px-6 py-3">{{ tenant.get_next_due_date|date:"M d, Y" }}</td>
               <td class="px-6 py-3">
-                <a href="#" class="text-blue-600 hover:underline mr-3">View Info</a>
+                <a href="{% url 'tenant-info' tenant.id%}" class="text-blue-600 hover:underline mr-3">View Info</a>
               </td>
             </tr>
           {% empty %}
