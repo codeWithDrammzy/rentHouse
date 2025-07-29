@@ -1,6 +1,7 @@
 {% extends "soniHouseAgent/adminpage/base.html" %}
 {% block content %}
 <main class="col-span-1 md:col-span-8 px-4">
+  <h3 class="text-lg font-bold text-blue-800">Property Information</h3>
   <div class="max-w-4xl mx-auto mt-6 bg-white shadow rounded-lg p-6 space-y-6">
 
     <!-- Back Button -->
@@ -10,7 +11,7 @@
 
     <!-- Title and Location -->
     <div class="border-b pb-4">
-      <h2 class="text-3xl font-bold text-blue-800">{{ property.title|default:"Luxury 3-Bedroom Apartment" }}</h2>
+      <h2 class="text-3xl font-bold text-blue-800"> Apartment: {{ property.title|upper }}</h2>
       <div class="flex items-center space-x-2 mt-2">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5 9 6.343 9 8s1.343 3 3 3z" />
@@ -48,19 +49,18 @@
     </div>
 
     <!-- Owner Details -->
-    <div class="mt-6">
-      <h3 class="text-lg font-bold text-gray-800 mb-2">Owner Information</h3>
+    <div class="border-t pb-0 mt-6">
+      <h3 class="text-lg font-bold text-blue-800">Owner Information</h3>
+    </div>
+   
+
+    <div class="mt-6 grid grid-cols-2 ">
+      
       <p><span class="font-semibold">Name:</span> {{ property.owner.first_name|title }} {{ property.owner.last_name|title }}</p>
       <p><span class="font-semibold">Phone:</span> {{ property.owner.phone_number|default:"0801 234 5678" }}</p>
     </div>
 
-    <!-- Description -->
-    <div class="mt-6">
-      <h3 class="text-lg font-bold text-gray-800 mb-2">Description</h3>
-      <p class="text-gray-700 leading-relaxed">
-        {{ property.description}}
-      </p>
-    </div>
+   
 
   </div>
 </main>

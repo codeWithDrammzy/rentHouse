@@ -35,31 +35,32 @@
           <thead class="bg-gray-100 text-gray-600">
             <tr>
               <th class="px-4 py-2">Tenant</th>
-              <th class="px-4 py-2">Unit</th>
+              <th class="px-4 py-2">Apartment</th>
               <th class="px-4 py-2">Last Payment</th>
               <th class="px-4 py-2">Status</th>
             </tr>
           </thead>
-          <tbody class="text-gray-700">
-            <tr class="border-b">
-              <td class="px-4 py-2 font-medium">Aliyu Umar</td>
-              <td class="px-4 py-2">Block A1</td>
-              <td class="px-4 py-2">May 10, 2025</td>
-              <td class="px-4 py-2 text-red-600 font-semibold">Overdue</td>
-            </tr>
-            <tr class="border-b">
-              <td class="px-4 py-2 font-medium">Zainab Bello</td>
-              <td class="px-4 py-2">Block B3</td>
-              <td class="px-4 py-2">June 28, 2025</td>
-              <td class="px-4 py-2 text-green-600 font-semibold">Paid</td>
-            </tr>
-            <tr>
-              <td class="px-4 py-2 font-medium">Yusuf Sani</td>
-              <td class="px-4 py-2">Block C2</td>
-              <td class="px-4 py-2">June 1, 2025</td>
-              <td class="px-4 py-2 text-yellow-500 font-semibold">Due Soon</td>
-            </tr>
-          </tbody>
+          {% for tenant in tenant_status %}
+            <tbody class="text-gray-700">
+              <tr class="border-b">
+                <td class="px-4 py-2 font-medium">{{ tenant.first_name|title }} {{ tenant.last_name|title }}</td>
+                <td class="px-4 py-2">{{ tenant.house|title }}</td>
+                <td class="px-4 py-2">{{ tenant.last_payment_date }}</td>
+                <td class="px-4 py-2">
+                  {% with status=tenant.get_payment_status %}
+                    {% if status == 'overdue' %}
+                      <span class="text-red-600 font-semibold">Overdue</span>
+                    {% elif status == 'due_soon' %}
+                      <span class="text-yellow-600 font-semibold">Due Soon</span>
+                    {% else %}
+                      <span class="text-green-600 font-semibold">Paid</span>
+                    {% endif %}
+                  {% endwith %}
+                </td>
+              </tr>
+            </tbody>
+          {% endfor %}
+
         </table>
       </div>
     </section>

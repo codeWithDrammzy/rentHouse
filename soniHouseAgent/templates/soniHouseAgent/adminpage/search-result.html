@@ -58,7 +58,45 @@
     </div>
     {% endif %}
 
-    <!-- Landlord Results -->
+   
+
+    <!-- Property Results -->
+    {% if property %}
+    <div>
+      <h3 class="text-lg font-bold text-gray-700 mb-4">Properties</h3>
+      <div class="overflow-x-auto bg-white shadow rounded-lg">
+        <table class="min-w-full table-auto">
+          <thead class="bg-gray-100 text-left text-gray-700 uppercase text-sm font-semibold">
+            <tr>
+              <th class="px-6 py-3">Title</th>
+              <th class="px-6 py-3">Location</th>
+              <th class="px-6 py-3">Bedrooms</th>
+              <th class="px-6 py-3">Price</th>
+              <th class="px-6 py-3">View Info</th>
+            </tr>
+          </thead>
+          <tbody class="text-sm text-gray-800">
+            {% for p in property %}
+            <tr class="border-b hover:bg-gray-50">
+              <td class="px-6 py-3">{{ p.title|title }}</td>
+              <td class="px-6 py-3">{{ p.location|title }}</td>
+              <td class="px-6 py-3">{{ p.num_bedrooms }}</td>
+              <td class="px-6 py-3">₦{{ p.price }}</td>
+              <td class="px-6 py-3 space-x-2">
+                <a href="{% url 'property-info' p.id %}" class="text-blue-600 hover:underline">View Info</a>              
+              </td> 
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="text-center py-4 text-gray-500">No properties found.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endif %}
+
+
+     <!-- Landlord Results -->
     {% if owner %}
     <div>
       <h3 class="text-lg font-bold text-gray-700 mb-4">Landlords</h3>
@@ -74,43 +112,12 @@
           <tbody class="text-sm text-gray-800">
             {% for o in owner %}
             <tr class="border-b hover:bg-gray-50">
-              <td class="px-6 py-3 font-bold">{{ o.first_name }} {{ o.last_name }}</td>
+              <td class="px-6 py-3 font-bold">{{ o.first_name|title }} {{ o.last_name|title }}</td>
               <td class="px-6 py-3">{{ o.phone_number }}</td>
               <td class="px-6 py-3">{{ o.id_card }}</td>
             </tr>
             {% empty %}
             <tr><td colspan="3" class="text-center py-4 text-gray-500">No landlords found.</td></tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </div>
-    {% endif %}
-
-    <!-- Property Results -->
-    {% if property %}
-    <div>
-      <h3 class="text-lg font-bold text-gray-700 mb-4">Properties</h3>
-      <div class="overflow-x-auto bg-white shadow rounded-lg">
-        <table class="min-w-full table-auto">
-          <thead class="bg-gray-100 text-left text-gray-700 uppercase text-sm font-semibold">
-            <tr>
-              <th class="px-6 py-3">Title</th>
-              <th class="px-6 py-3">Location</th>
-              <th class="px-6 py-3">Bedrooms</th>
-              <th class="px-6 py-3">Price</th>
-            </tr>
-          </thead>
-          <tbody class="text-sm text-gray-800">
-            {% for p in property %}
-            <tr class="border-b hover:bg-gray-50">
-              <td class="px-6 py-3">{{ p.title }}</td>
-              <td class="px-6 py-3">{{ p.location }}</td>
-              <td class="px-6 py-3">{{ p.num_bedrooms }}</td>
-              <td class="px-6 py-3">₦{{ p.price }}</td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="4" class="text-center py-4 text-gray-500">No properties found.</td></tr>
             {% endfor %}
           </tbody>
         </table>

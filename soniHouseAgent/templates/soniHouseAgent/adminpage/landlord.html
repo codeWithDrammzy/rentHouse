@@ -37,7 +37,7 @@
             <th class="px-6 py-3">Name</th>
             <th class="px-6 py-3">Property</th>
             <th class="px-6 py-3">Phone</th>
-            <th class="px-6 py-3">Actions</th>
+            {% comment %} <th class="px-6 py-3">Actions</th> {% endcomment %}
           </tr>
         </thead>
         <tbody class="text-sm text-gray-800">
@@ -63,9 +63,9 @@
 
 
             <td class="px-6 py-3">{{ owner.phone_number }}</td>
-            <td class="px-6 py-3">
+            {% comment %} <td class="px-6 py-3">
               <a href="#" class="text-blue-600 hover:underline mr-3">View Info</a>
-            </td>
+            </td> {% endcomment %}
           </tr>
           {% endfor %}
         </tbody>

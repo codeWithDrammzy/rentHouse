@@ -1,0 +1,24 @@
+{% extends "soniHouseAgent/adminpage/base.html" %}
+{% block content %}
+<div class="p-6 bg-white shadow rounded-xl">
+  <h1 class="text-2xl font-semibold text-blue-800 mb-6">📅 Rent Payment Calendar</h1>
+  <div id="calendar" class="border rounded-lg shadow"></div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      height: 600,
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,listWeek'
+      },
+      events: '/api/payment-events/'  // <-- pulls from your Django view
+    });
+    calendar.render();
+  });
+</script>
+{% endblock %}
