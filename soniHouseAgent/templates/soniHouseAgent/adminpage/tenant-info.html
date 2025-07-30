@@ -73,7 +73,12 @@
      <a href="{{ request.META.HTTP_REFERER }}" onclick="history.back()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Back</a>
 
       <a href="{% url 'renew-rent' tenant.id %}" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Renew Rent</a>
-      <a href="#" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Delete</a>
+      <a href="{% url 'delete-tenant' tenant.id %}" 
+        onclick="return confirm('Are you sure you want to delete this tenant?')" 
+        class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+        Delete
+      </a>
+
     </div>
 
   </div>

@@ -1,0 +1,37 @@
+{% extends "soniHouseAgent/adminpage/base.html" %}
+{% block content %}
+<div class="p-6 bg-white shadow rounded-xl">
+  <h1 class="text-2xl font-semibold text-blue-800 mb-6">📅 Overdue Tenants</h1>
+
+  {% if tenants %}
+  <div class="overflow-x-auto">
+    <table class="w-full table-auto border border-gray-300 rounded-lg">
+      <thead class="bg-blue-100 text-blue-800">
+        <tr>
+          <th class="px-4 py-2 text-left">Name</th>
+          <th class="px-4 py-2 text-left">House</th>
+          <th class="px-4 py-2 text-left">Last Payment</th>
+          <th class="px-4 py-2 text-left">Next Due Date</th>
+          <th class="px-4 py-2 text-left">Status</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-700">
+        {% for tenant in tenants %}
+        <tr class="border-t hover:bg-gray-50">
+          <td class="px-4 py-2 font-medium">
+            {{ tenant.first_name|title }} {{ tenant.last_name|title }}
+          </td>
+          <td class="px-4 py-2">{{ tenant.house.title }}</td>
+          <td class="px-4 py-2">{{ tenant.last_payment_date }}</td>
+          <td class="px-4 py-2">{{ tenant.get_next_due_date }}</td>
+          <td class="px-4 py-2 text-red-600 font-semibold">Overdue</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="text-gray-600">No overdue tenants found.</p>
+  {% endif %}
+</div>
+{% endblock %}

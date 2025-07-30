@@ -1,0 +1,68 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soni Agent | Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+</head>
+<body class="font-sans antialiased bg-gray-100 text-gray-800">
+
+  {% include "soniHouseAgent/homepage/nav.html" %}
+   
+    <div class="max-w-6xl mx-auto px-4 py-12">
+        <div class="bg-white rounded-lg shadow-md p-8">
+            {% if house.image %}
+                <img src="{{ house.image.url }}" alt="{{ house.title }}" class="w-full h-96 object-cover rounded-lg mb-6">
+            {% endif %}
+
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ house.title }}</h1>
+            <p class="text-xl text-blue-700 font-semibold mb-4">D {{ house.price }} / month</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                <p><strong>Location:</strong> {{ house.location }}</p>
+                <p><strong>Bedrooms:</strong> {{ house.num_bedrooms }}</p>
+                <p><strong>Bathrooms:</strong> {{ house.num_bathrooms }}</p>
+                <p><strong>Available:</strong> {{ house.is_available|yesno:"Yes,No" }}</p>
+                <p><strong>Listed:</strong> {{ house.listed_date|date:"F j, Y" }}</p>
+            </div>
+
+            <div class="prose max-w-none">
+                <h2 class="text-xl font-semibold mb-2">Description</h2>
+                <p>{{ house.description }}</p>
+            </div>
+
+            <div class="mt-8 ">
+                <a href="{% url 'home' %}#properties" class="text-blue-600 hover:underline">&larr; Back to Listings</a>
+            </div>
+        </div>
+
+        <div class="mt-10 border-t pt-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Contact Agent</h2>
+            <div class="flex items-start space-x-4 bg-blue-50 p-6 rounded-lg shadow-sm">
+                <div>
+                    <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M2.25 6.75A2.25 2.25 0 014.5 4.5h15a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25h-15A2.25 2.25 0 012.25 17.25V6.75z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M4.5 6.75L12 13.5l7.5-6.75"/>
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-lg font-semibold text-gray-800">Mr. Muhammad</p>
+                    <p class="text-gray-600">Company: Soni Agent</p>
+                    <p class="text-gray-600">Phone: <a href="tel:+2207970858" class="text-blue-600 hover:underline">+220 7970858</a></p>
+                </div>
+            </div>
+        </div>
+
+    </div>  
+  
+  {% include "soniHouseAgent/homepage/footer.html" %}
+    
+
+</body>
+</html>

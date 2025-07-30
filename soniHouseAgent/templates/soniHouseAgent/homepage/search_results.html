@@ -1,0 +1,60 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soni Agent | Result</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+</head>
+<body class="font-sans antialiased bg-gray-100 text-gray-800">
+
+  {% include "soniHouseAgent/homepage/nav.html" %}
+   
+     <section class="py-6  md:py-16">
+        <div class="max-w-6xl mx-auto px-4">
+
+            <!-- Search Bar -->
+            <form method="GET" action="{% url 'search' %}" class="flex items-center mb-10">
+                <input type="text" name="q" value="{{ query }}" placeholder="Search by location, price, rooms..."
+                    class="flex-grow p-3 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm">
+                <button type="submit"
+                    class="px-5 py-3 bg-blue-600 text-white rounded-r-md hover:bg-blue-700 transition duration-200">
+                    Search
+                </button>
+            </form>
+
+            <!-- Heading -->
+            <h1 class="text-3xl font-bold mb-6">Search Results for "{{ query }}"</h1>
+
+            <!-- Results -->
+            {% if results %}
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {% for house in results %}
+                        <div class="bg-white rounded-md shadow-md overflow-hidden">
+                            {% if house.image %}
+                                <img src="{{ house.image.url }}" alt="{{ house.title }}" class="w-full h-48 object-cover">
+                            {% else %}
+                                <img src="{% static 'default-house.jpg' %}" alt="No Image" class="w-full h-48 object-cover">
+                            {% endif %}
+                            <div class="p-4">
+                                <h2 class="text-xl font-semibold">{{ house.title }}</h2>
+                                <p class="text-gray-600">{{ house.location }}</p>
+                                <p class="text-blue-600 font-bold">D{{ house.price }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-lg text-gray-600">No results found. Try searching with different keywords.</p>
+            {% endif %}
+        </div>
+    </section>
+
+
+    {% include "soniHouseAgent/homepage/footer.html" %}
+    
+
+</body>
+</html>

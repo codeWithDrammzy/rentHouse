@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us | Soni Agent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+    {% include "soniHouseAgent/homepage/nav.html" %}
+
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <h1 class="text-4xl font-bold text-center text-gray-800 mb-10">Contact Soni Agent</h1>
+
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Company Info -->
+                    <div>
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Company Info</h2>
+                        <p class="mb-2"><strong>Company:</strong> Soni Agent</p>
+                        <p class="mb-2"><strong>Email:</strong> <a href="mailto:info@soniagent.com" class="text-blue-600 hover:underline">info@soniagent.com</a></p>
+                        <p class="mb-2"><strong>Phone:</strong> +1 (123) 456-7890</p>
+                        <p class="mb-2"><strong>Address:</strong> 123 Main Street, Cityname, Country</p>
+                        <p class="mt-4 text-gray-600">Reach out through any of our social channels below.</p>
+                    </div>
+
+                    <!-- Social Contact Options -->
+                    <div>
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Connect With Us</h2>
+                        <ul class="space-y-4 text-lg">
+                            <li>
+                                <a href="https://wa.me/2349052730391" target="_blank" class="flex items-center text-green-600 hover:underline">
+                                    <i class="fab fa-whatsapp text-2xl mr-2"></i> WhatsApp Chat
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://web.facebook.com/theafricanchild2.v" target="_blank" class="flex items-center text-blue-700 hover:underline">
+                                    <i class="fab fa-facebook text-2xl mr-2"></i> Facebook Page
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/dawud_drammzy/" target="_blank" class="flex items-center text-pink-500 hover:underline">
+                                    <i class="fab fa-instagram text-2xl mr-2"></i> Instagram
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tel:+11234567890" class="flex items-center text-gray-700 hover:underline">
+                                    <i class="fas fa-phone text-2xl mr-2"></i> Call Us
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include "soniHouseAgent/homepage/footer.html" %}
+
+</body>
+</html>

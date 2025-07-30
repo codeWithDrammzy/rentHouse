@@ -49,16 +49,33 @@
     </div>
 
     <!-- Owner Details -->
-    <div class="border-t pb-0 mt-6">
-      <h3 class="text-lg font-bold text-blue-800">Owner Information</h3>
-    </div>
-   
-
-    <div class="mt-6 grid grid-cols-2 ">
+     <div>
+        <div class="border-t pb-0 mt-6">
+          <h3 class="text-lg font-bold text-blue-800">Owner Information</h3>
+        </div>
       
-      <p><span class="font-semibold">Name:</span> {{ property.owner.first_name|title }} {{ property.owner.last_name|title }}</p>
-      <p><span class="font-semibold">Phone:</span> {{ property.owner.phone_number|default:"0801 234 5678" }}</p>
-    </div>
+
+        <div class="mt-6 grid grid-cols-2 ">
+          
+          <p><span class="font-semibold">Name:</span> {{ property.owner.first_name|title }} {{ property.owner.last_name|title }}</p>
+          <p><span class="font-semibold">Phone:</span> {{ property.owner.phone_number|default:"0801 234 5678" }}</p>
+        </div>
+     </div>
+    
+     {% if not property.is_available and property.tenant %}
+        <!-- Tenant Details -->
+        <div class="border-t pt-6 mt-6">
+          <h3 class="text-lg font-bold text-blue-800 ">Tenant Information</h3>
+          <div class="mt-4 grid grid-cols-2 gap-4">
+            <p><span class="font-semibold">Name:</span> {{ property.tenant.first_name|title }} {{ property.tenant.last_name|title }}</p>
+            <p><span class="font-semibold">Phone:</span> {{ property.tenant.phone_number|default:"0700 000 0000" }}</p>
+            <p><span class="font-semibold">Payment Option:</span> {{ property.tenant.get_payment_option_display }}</p>
+            <p><span class="font-semibold">Move-in Date:</span> {{ property.tenant.move_in_date }}</p>
+          </div>
+        </div>
+      {%else%}
+          <h2 class="text-lg text-center border p-2 font-bold text-red-800">No Tenat in the House</h2>
+      {% endif %}
 
    
 

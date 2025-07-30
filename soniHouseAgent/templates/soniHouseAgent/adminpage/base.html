@@ -59,16 +59,29 @@
           <h3 class="text-xl font-semibold">Dashboard</h3>
           <div class="border-b border-blue-700 my-2"></div>
         </div>
-        <nav class="flex flex-col space-y-3 text-sm">
-          <a href="{% url 'dashboard' %}" class="hover:bg-blue-700 px-3 py-2 rounded-lg">📊 Dashboard</a>
-          <a href="{% url 'property' %}" class="hover:bg-blue-700 px-3 py-2 rounded-lg">🏠 Properties</a>
-          <a href="{% url 'tenant' %}" class="hover:bg-blue-700 px-3 py-2 rounded-lg">👥 Tenants</a>
-          <a href="{% url 'landlord' %}" class="hover:bg-blue-700 px-3 py-2 rounded-lg">👥 Landlords</a>
-          <a href="#" class="hover:bg-blue-700 px-3 py-2 rounded-lg">📈 Reports</a>
-          <a href="#" class="hover:bg-blue-700 px-3 py-2 rounded-lg">⚙️ Settings</a>
+        <nav class="flex flex-col space-y-4 text-sm">
+          <div>
+            <h4 class="uppercase font-bold mb-2 text-blue-300">Main</h4>
+
+           <a href="{% url 'dashboard' %}" 
+              class="hover:bg-blue-500 px-3 py-2 rounded-lg {% if request.resolver_match.url_name == 'dashboard' %}bg-blue-700 font-semibold{% endif %}">
+              📊 Dashboard
+            </a>
+
+          </div>
+          <div>
+            <h4 class="uppercase font-bold mb-2 text-blue-300">Management</h4>
+            <a href="{% url 'property' %}" class="hover:bg-blue-500 px-3 py-2 rounded-lg flex items-center gap-2 {% if request.resolver_match.url_name == 'property' %}bg-blue-700 font-semibold {%endif%} ">🏠 Properties</a>
+            <a href="{% url 'tenant' %}" class="hover:bg-blue-500 px-3 py-2 rounded-lg flex items-center gap-2 {% if request.resolver_match.url_name == 'tenant' %}bg-blue-700 font-semibold {%endif%}   ">👥 Tenants</a>
+            <a href="{% url 'landlord' %}" class="hover:bg-blue-500 px-3 py-2 rounded-lg flex items-center gap-2 {% if request.resolver_match.url_name == 'landlord'%} bg-blue-700 font-semibold {%endif%} ">👥 Landlords</a>
+          </div>
+         
         </nav>
+
+       
       </div>
     </aside>
+
 
     <!-- Main Content (Scrollable) -->
     <main class="flex-1 overflow-y-auto p-4 bg-gray-50">
@@ -82,14 +95,16 @@
 
     <!-- Right Sidebar -->
     <aside class="w-64 bg-white border-l p-6 hidden md:block overflow-y-auto">
-      <div class="space-y-4">
-        <h3 class="text-lg font-semibold mb-2 text-gray-700">Tools</h3>
-        <ul class="text-sm space-y-2">
-          <li><a href="#" class="text-blue-600 hover:underline">🔍 Filter Overdue</a></li>
-          <li><a href="#" class="text-blue-600 hover:underline">📤 Export CSV</a></li>
-          <li><a href="#" class="text-blue-600 hover:underline">✉️ Send Reminders</a></li>
-          <li><a href="{% url 'payment-calendar' %}" class="text-blue-600 hover:underline">📅 Payment Calendar</a></li>
-        </ul>
+      <div class="space-y-6">
+        <h3 class="text-lg font-semibold mb-4 text-gray-700 border-b border-gray-300 pb-2">Tools</h3>
+        <nav class="text-sm space-y-3">
+          <a href="{% url 'overdue-tenants' %}" class="block text-blue-600 hover:underline flex items-center gap-2">🔍 Filter Overdue</a>
+          <a href="{% url 'export-all-tenants-csv' %}" class="block text-blue-600 hover:underline flex items-center gap-2">📤 Export CSV</a>
+          <a href="{% url 'bin-view' %}" class="block text-blue-600 hover:underline flex items-center gap-2">🗑️ Recycle Bin</a>
+          <a href="{% url 'payment-calendar' %}" class="block text-blue-600 hover:underline flex items-center gap-2">📅 Payment Calendar</a>
+        </nav>
+
+        
       </div>
     </aside>
 

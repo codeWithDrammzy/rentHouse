@@ -12,26 +12,20 @@
 
   {% include "soniHouseAgent/homepage/nav.html" %}
    
-
+    {% comment %} form section {% endcomment %}
     <section class="relative bg-cover bg-center h-[500px]  flex items-center justify-center text-center px-4 " style="background-image: url('{% static 'images/gambia.webp' %}');">
         <div class="absolute inset-0 bg-black opacity-50"></div>
 
             <div class="relative z-10 pt-6 max-w-4xl  mx-auto w-full">
                 <!-- Beautified Search Form -->
                 <div class="bg-white bg-opacity-50 p-6 rounded-lg shadow-lg max-w-2xl mx-auto mb-10">
-                <form action="#" method="" class="flex flex-col sm:flex-row gap-4">
-                    <input 
-                    type="text" 
-                    name="location" 
-                    placeholder="Enter city, area, or landmark..." 
-                    class="flex-grow p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
-                    >
-                    <button 
-                    type="submit" 
-                    class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition duration-300 shadow-md">
-                    Search
-                    </button>
+                <form method="GET" action="{% url 'search' %}" class="flex flex-col sm:flex-row gap-4">
+                    <input type="text" name="q" placeholder="Search by location, price, or number of rooms..."
+                    class="flex-grow p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm">
+                    <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition duration-300 shadow-md">Search</button>
                 </form>
+
+
                 </div>
 
                 <!-- Heading & Subheading -->
@@ -49,113 +43,46 @@
     <section class="py-12 bg-gray-50" id="properties">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-10">
-                Featured Rental Properties
+                Available Rental Properties
             </h2>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                {%for house in available_rent%}
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 animate-fade-in-up delay-300">
-                    <img src="https://via.placeholder.com/400x250/5a67d8/ffffff?text=Property+Image+1" alt="Spacious 3-Bedroom Duplex" class="w-full h-48 object-cover">
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2 truncate">Spacious 3-Bedroom Duplex in Lekki</h3>
-                        <p class="text-blue-700 font-bold text-2xl mb-3">₦250,000/month</p>
-                        <div class="flex flex-wrap items-center text-gray-600 text-sm mb-4 gap-2">
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                                3 Beds
-                            </span>
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                                2 Baths
-                            </span>
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-                                Lekki, Lagos
-                            </span>
-                        </div>
-                        <a href="#" class="block w-full bg-blue-700 text-white text-center py-2 rounded-md hover:bg-blue-800 transition duration-300 font-semibold shadow-sm">
-                            View Details
-                        </a>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 animate-fade-in-up delay-400">
-                    <img src="https://via.placeholder.com/400x250/607d8b/ffffff?text=Property+Image+2" alt="Cozy 2-Bedroom Apartment" class="w-full h-48 object-cover">
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2 truncate">Cozy 2-Bedroom Apartment in Ikeja</h3>
-                        <p class="text-blue-700 font-bold text-2xl mb-3">₦120,000/month</p>
-                        <div class="flex flex-wrap items-center text-gray-600 text-sm mb-4 gap-2">
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                                2 Beds
-                            </span>
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                                1 Bath
-                            </span>
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-                                Ikeja, Lagos
-                            </span>
-                        </div>
-                        <a href="#" class="block w-full bg-blue-700 text-white text-center py-2 rounded-md hover:bg-blue-800 transition duration-300 font-semibold shadow-sm">
-                            View Details
-                        </a>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 animate-fade-in-up delay-500">
-                    <img src="https://via.placeholder.com/400x250/78909c/ffffff?text=Property+Image+3" alt="Modern Self-contained Unit" class="w-full h-48 object-cover">
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2 truncate">Modern Self-contained Unit in Gbagada</h3>
-                        <p class="text-blue-700 font-bold text-2xl mb-3">₦70,000/month</p>
-                        <div class="flex flex-wrap items-center text-gray-600 text-sm mb-4 gap-2">
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                                Studio
-                            </span>
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                                1 Bath
-                            </span>
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-                                Gbagada, Lagos
-                            </span>
-                        </div>
-                        <a href="#" class="block w-full bg-blue-700 text-white text-center py-2 rounded-md hover:bg-blue-800 transition duration-300 font-semibold shadow-sm">
-                            View Details
-                        </a>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 animate-fade-in-up delay-600">
-                    <img src="https://via.placeholder.com/400x250/4CAF50/ffffff?text=Property+Image+4" alt="Spacious 4-Bedroom House" class="w-full h-48 object-cover">
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2 truncate">Spacious 4-Bedroom House in Abuja</h3>
-                        <p class="text-blue-700 font-bold text-2xl mb-3">₦350,000/month</p>
-                        <div class="flex flex-wrap items-center text-gray-600 text-sm mb-4 gap-2">
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                                4 Beds
-                            </span>
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                                3 Baths
-                            </span>
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-                                Abuja, FCT
-                            </span>
-                        </div>
-                        <a href="#" class="block w-full bg-blue-700 text-white text-center py-2 rounded-md hover:bg-blue-800 transition duration-300 font-semibold shadow-sm">
-                            View Details
-                        </a>
-                    </div>
-                </div>
-                </div>
+                    {% if house.image %}
+                        <img src="{{ house.image.url }}" alt="{{ house.title }}" class="w-full h-48 object-cover">
+                    {% endif %}
 
-            <div class="text-center mt-10">
-                <a href="#" class="inline-block bg-transparent border border-blue-700 text-blue-700 px-8 py-3 rounded-md hover:bg-blue-700 hover:text-white transition duration-300 font-semibold shadow-sm">
-                    Browse All Properties
-                </a>
-            </div>
+
+                    <div class="p-5">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2 truncate">{{house.title|title}}</h3>
+                        <p class="text-blue-700 font-bold text-2xl mb-3">D {{house.price}} /month</p>
+                        <div class="flex flex-wrap items-center text-gray-600 text-sm mb-4 gap-2">
+                            <span class="flex items-center">
+                                <svg class="w-4 h-4 mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                                {{house.num_bedrooms}} Beds
+                            </span>
+                            <span class="flex items-center">
+                                <svg class="w-4 h-4 mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                {{house.num_bathrooms}} Baths
+                            </span>
+                            <span class="flex items-center">
+                                <svg class="w-4 h-4 mr-1 text-blue-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                                {{house.location|title}}
+                            </span>
+                        </div>
+                        <a href="{% url 'house-info' house.id %}" class="block w-full bg-blue-700 text-white text-center py-2 rounded-md hover:bg-blue-800 transition duration-300 font-semibold shadow-sm">
+                            View Details
+                        </a>
+
+
+                    </div>
+                </div>
+                {%endfor%}
+               
+
+            
+            
         </div>
     </section>
 

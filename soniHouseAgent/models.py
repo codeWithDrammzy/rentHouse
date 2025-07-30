@@ -5,13 +5,21 @@ from datetime import date, timedelta
 class Landlord(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    phone_number = models.CharField(max_length=15)
+    phone_number = models.CharField(max_length=7)
     email = models.EmailField()
     address = models.TextField()
-    id_card = models.CharField(max_length=50)  # National ID, passport, etc.
+    id_card = models.CharField(max_length=50)  
+    is_deleted = models.BooleanField(default=False) #this is to enanle bin restre
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+    
+    # 🔁 For all three models
+
+    def delete(self, *args, **kwargs):
+        self.is_deleted = True
+        self.save()
+
 
 
 # 🏠 House Model
@@ -27,9 +35,16 @@ class House(models.Model):
     image = models.ImageField(upload_to='house_images/', blank=True, null=True)
 
     owner = models.ForeignKey(Landlord, on_delete=models.CASCADE, related_name='houses')
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.title} - {self.location}"
+    # 🔁 For all three models
+
+    def delete(self, *args, **kwargs):
+        self.is_deleted = True
+        self.save()
+
 
 
 # 👤 Tenant Model
@@ -42,13 +57,14 @@ class Tenant(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     id_card = models.CharField(max_length=20)
-    phone_number = models.CharField(max_length=15)
+    phone_number = models.CharField(max_length=7)
     house = models.OneToOneField(House, on_delete=models.CASCADE)
     move_in_date = models.DateField(auto_now_add=True)
     payment_option = models.CharField(max_length=10, choices=PAYMENT_OPTIONS)
     last_payment_date = models.DateField(auto_now_add=True)
     payment_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     has_paid = models.BooleanField(default=True)
+    is_deleted = models.BooleanField(default=False)# bin check for delete
 
     def save(self, *args, **kwargs):
         # Automatically calculate payment amount based on house price and payment duration
@@ -85,3 +101,9 @@ class Tenant(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} - {self.house.title}"
+
+    # 🔁 For all three models
+
+    def delete(self, *args, **kwargs):
+        self.is_deleted = True
+        self.save()
